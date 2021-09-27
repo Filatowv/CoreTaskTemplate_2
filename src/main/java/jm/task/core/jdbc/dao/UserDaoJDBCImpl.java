@@ -22,8 +22,10 @@ public class UserDaoJDBCImpl implements UserDao {
             "age INTEGER(3))";
 
 
-    public UserDaoJDBCImpl() {}
+    public UserDaoJDBCImpl() {
+    }
 
+    @Override
     public void dropUsersTable() {
         try (Connection connection = Util.getMySQLConnection();
              Statement statement = connection.createStatement()) {
@@ -33,7 +35,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-
+    @Override
     public void createUsersTable() {
         try (Connection connection = Util.getMySQLConnection();
              Statement statement = connection.createStatement()) {
@@ -43,7 +45,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-
+    @Override
     public void saveUser(String name, String lastName, byte age) {
         try (Connection connection = Util.getMySQLConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS)) {
@@ -56,7 +58,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-
+    @Override
     public void removeUserById(long id) {
         try (Connection connection = Util.getMySQLConnection();
              Statement statement1 = connection.createStatement()) {
@@ -66,9 +68,8 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-
+    @Override
     public List<User> getAllUsers() {
-
         List<User> users = new ArrayList<>();
         User user;
 
@@ -88,9 +89,11 @@ public class UserDaoJDBCImpl implements UserDao {
         return users;
     }
 
+
+    @Override
     public void cleanUsersTable() {
         try (Connection connection = Util.getMySQLConnection();
-            Statement statement = connection.createStatement()) {
+             Statement statement = connection.createStatement()) {
             statement.executeUpdate(CLEAN_TABLE_USERS);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
