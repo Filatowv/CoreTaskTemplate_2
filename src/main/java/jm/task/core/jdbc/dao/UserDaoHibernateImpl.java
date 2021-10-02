@@ -4,7 +4,6 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.UtilHiber;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
@@ -23,11 +22,11 @@ public class UserDaoHibernateImpl implements UserDao {
             "age INTEGER(3))";
 
 
-    public UserDaoHibernateImpl() {
-    }
+    public UserDaoHibernateImpl() {}
 
     @Override
     public void createUsersTable() {
+
         try (Session session = UtilHiber.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.createSQLQuery(CREATE_TABLE).addEntity(User.class).executeUpdate();
@@ -38,6 +37,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void dropUsersTable() {
+
         try (Session session = UtilHiber.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.createSQLQuery(DROP_TABLE).addEntity(User.class).executeUpdate();
@@ -48,7 +48,6 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-
         try (Session session = UtilHiber.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(new User(name, lastName, age));
