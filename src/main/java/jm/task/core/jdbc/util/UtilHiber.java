@@ -17,7 +17,7 @@ public class UtilHiber {
                     Configuration configuration = new Configuration();
                     Properties settings = new Properties();
                     settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                    settings.put(Environment.URL, "jdbc:mysql://localhost:3306/mybdtest?autoReconnect=true&useSSL=false");
+                    settings.put(Environment.URL, "jdbc:mysql://localhost:3306/mybdtest?serverTimezone=Europe/Moscow");
                     settings.put(Environment.USER, "root");
                     settings.put(Environment.PASS, "F1133363il@");
                     settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
