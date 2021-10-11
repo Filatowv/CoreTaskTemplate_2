@@ -1,0 +1,9 @@
+D:\CoreTaskTemplate_2\src\main\java\jm\task\core\jdbc\model\User.java
+D:\CoreTaskTemplate_2\src\main\java\jm\task\core\jdbc\service\UserServiceImpl.java
+D:\CoreTaskTemplate_2\src\main\java\jm\task\core\jdbc\service\UserService.java
+D:\CoreTaskTemplate_2\src\main\java\jm\task\core\jdbc\dao\UserDao.java
+D:\CoreTaskTemplate_2\src\main\java\jm\task\core\jdbc\Main.java
+D:\CoreTaskTemplate_2\src\main\java\jm\task\core\jdbc\util\UtilHiber.java
+D:\CoreTaskTemplate_2\src\main\java\jm\task\core\jdbc\dao\UserDaoHibernateImpl.java
+D:\CoreTaskTemplate_2\src\main\java\jm\task\core\jdbc\util\Util.java
+D:\CoreTaskTemplate_2\src\main\java\jm\task\core\jdbc\dao\UserDaoJDBCImpl.java
