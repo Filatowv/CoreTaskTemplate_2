@@ -4,16 +4,14 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.UtilHiber;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
 
 
-    private static final String CLEAN_TABLE_USERS = "TRUNCATE TABLE users";
-    private static final String DELETE_BY_ID = "DELETE FROM users WHERE id = ";
-    private static final String INSERT_USERS = "INSERT INTO users (name, lastName, age) VALUE (?,?,?)";
-    private static final String DROP_TABLE = "DROP TABLE IF EXISTS users";
     private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS users (" +
             " id INTEGER PRIMARY KEY NOT NULL" +
             " AUTO_INCREMENT," +
@@ -40,7 +38,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
         try (Session session = UtilHiber.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.createSQLQuery(DROP_TABLE).addEntity(User.class).executeUpdate();
+            session.createSQLQuery("drop table if exists users ").addEntity(User.class).executeUpdate();
             transaction.commit();
             session.close();
         }
@@ -60,7 +58,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void removeUserById(long id) {
         try (Session session = UtilHiber.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.createSQLQuery(DELETE_BY_ID + id).addEntity(User.class).executeUpdate();
+            session.createSQLQuery("delete from users where id = id ").addEntity(User.class).executeUpdate();
             transaction.commit();
             session.close();
         }
@@ -70,12 +68,9 @@ public class UserDaoHibernateImpl implements UserDao {
     public List<User> getAllUsers() {
         try (Session session = UtilHiber.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            CriteriaQuery<User> criteriaQuery = session.getCriteriaBuilder().createQuery(User.class);
-            criteriaQuery.from(User.class);
-            List<User> result = session.createQuery(criteriaQuery).getResultList();
+            List<User> result = session.createQuery("from " + User.class.getSimpleName()).list();
             transaction.commit();
             session.close();
-
             return result;
         }
     }
@@ -84,7 +79,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void cleanUsersTable() {
         try (Session session = UtilHiber.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.createSQLQuery(CLEAN_TABLE_USERS).addEntity(User.class).executeUpdate();
+            session.createSQLQuery("truncate table users").addEntity(User.class).executeUpdate();
             transaction.commit();
             session.close();
         }
